@@ -9,6 +9,7 @@ app_path = Path(
     __file__
 ).parent.parent.parent.resolve()
 src_path = app_path / 'src'
+transltions_path = src_path / 'translations'
 venv_path = app_path / '.venv'
 app_launcher_path = app_path / f'{app_name}.py'
 requirements_txt = app_path / 'requirements.txt'
