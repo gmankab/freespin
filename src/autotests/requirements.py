@@ -35,14 +35,14 @@ async def get_result(
 ):
     requirements_dict = await parse_requirements_txt()
     outdated_list: list[dict] = json.loads(outdated_str)
-    count = 0
+    needed_outdeated = set()
     for package_dict in outdated_list:
         name = package_dict['name'].lower()
         if name in requirements_dict:
-            count += 1
-    if count:
+            needed_outdeated.add(name)
+    if needed_outdeated:
         autotests.errors.warn(
-            f'{count} packages are outdated, to update requirements.txt use --update_req_txt --install_req'
+            f'{needed_outdeated} packages are outdated, to update requirements.txt use --update_req_txt --install_req'
         )
     else:
         autotests.errors.passed('no oudtdated packages')
