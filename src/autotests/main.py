@@ -15,9 +15,10 @@ async def main():
         autotests.pyright.background()
     )
     foreground = [
-        models.translations_validation,
-        models.extra_uk_key,
-        models.extra_en_key,
+        models.validation_dict,
+        models.extra_uk_key_dict,
+        models.extra_en_key_dict,
+        models.validation_json
     ]
     for func in foreground:
         try:
