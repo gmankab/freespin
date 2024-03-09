@@ -1,6 +1,7 @@
 pydantic_core==2.16.3
 pyrofork==2.3.19.post2
 pydantic==2.6.3
-pytest==8.0.2
+pyright==1.1.353
+pytest==8.1.1
 rich==13.7.1
 
