@@ -5,9 +5,11 @@ from autotests import (
 import autotests.pyright
 import autotests.requirements
 import asyncio
+import os
 
 
 async def main():
+    exit_code: int = 0
     background_requirements = asyncio.create_task(
         autotests.requirements.background()
     )
@@ -25,10 +27,14 @@ async def main():
             await func()
         except:
             errors.write_error()
-    await autotests.pyright.get_result(
+            exit_code = 1
+    success = await autotests.pyright.get_result(
         await background_pyright
     )
+    if not success:
+        exit_code = 1
     await autotests.requirements.get_result(
         await background_requirements
     )
+    os._exit(exit_code)
 
