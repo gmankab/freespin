@@ -7,17 +7,31 @@ import json
 
 async def get_result(
     output_str: str,
-):
-    output_dict = json.loads(output_str)
+) -> bool:
+    '''
+    returns true if test passed, false if not passed
+    '''
+    if not output_str:
+        return True
+    try:
+        output_dict = json.loads(output_str)
+    except:
+        autotests.errors.write_text(
+            name = 'pyright',
+            text = f'failed to decode: {output_str}'
+        )
+        return False
     if output_dict['generalDiagnostics']:
         autotests.errors.write_text(
             name = 'pyright',
             text = output_str,
         )
+        return False
     else:
         autotests.errors.passed(
             'pyright test',
         )
+        return True
 
 
 async def background() -> str:
@@ -36,6 +50,11 @@ async def background() -> str:
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
-    stdout, _ = await process.communicate()
-    return str(stdout.decode())
+    stdout, stderr = await process.communicate()
+    result = str(stdout.decode())
+    if not result:
+        autotests.errors.warn(f'can\'t run pyright test: {stderr.decode()}')
+        return ''
+    else:
+        return result
 
