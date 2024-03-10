@@ -2,6 +2,10 @@ from autotests import (
     models,
     errors,
 )
+from core import (
+    common,
+    status,
+)
 import autotests.pyright
 import autotests.requirements
 import asyncio
@@ -10,6 +14,7 @@ import os
 
 async def main():
     exit_code: int = 0
+    common.console.log(status.status.get())
     background_requirements = asyncio.create_task(
         autotests.requirements.background()
     )
