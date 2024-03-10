@@ -52,6 +52,7 @@ def write_text(
         encoding='utf-8',
     ) as file:
         file.write(text)
+    console.log(text)
     console.log(f'[red]\\[{name} error][/] {error_path}')
 
 
