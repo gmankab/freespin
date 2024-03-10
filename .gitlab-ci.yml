@@ -1,0 +1,19 @@
+stages:
+  - autotests
+autotests_linux:
+  stage: autotests
+  image: python:3.12
+  script:
+    - python freespin.py autotests
+
+autotests_windows:
+  stage: autotests
+  tags:
+    - shared-windows
+    - windows
+  image: python:3.12
+  script:
+    - choco install python --version=3.12.2 -y -f
+    - choco install nodejs -y -f
+    - C:/Python312/python.exe freespin.py autotests
+
