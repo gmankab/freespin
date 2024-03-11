@@ -1,6 +1,6 @@
 from autotests import (
     models,
-    errors,
+    logging,
 )
 from core import (
     common,
@@ -31,7 +31,7 @@ async def main():
         try:
             await func()
         except:
-            errors.write_error()
+            logging.write_error()
             exit_code = 1
     success = await autotests.pyright.get_result(
         await background_pyright

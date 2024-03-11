@@ -1,6 +1,6 @@
 import pytest
 from core.models import Translations
-from autotests.errors import passed
+from autotests.logging import passed
 from core.setup import transltions_path
 
 

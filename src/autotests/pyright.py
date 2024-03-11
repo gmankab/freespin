@@ -1,4 +1,4 @@
-import autotests.errors
+import autotests.logging
 import core.setup
 import subprocess
 import asyncio
@@ -16,19 +16,19 @@ async def get_result(
     try:
         output_dict = json.loads(output_str)
     except:
-        autotests.errors.write_text(
+        autotests.logging.write_text(
             name = 'pyright',
             text = f'failed to decode: {output_str}'
         )
         return False
     if output_dict['generalDiagnostics']:
-        autotests.errors.write_text(
+        autotests.logging.write_text(
             name = 'pyright',
             text = output_str,
         )
         return False
     else:
-        autotests.errors.passed(
+        autotests.logging.passed(
             'pyright test',
         )
         return True
@@ -53,7 +53,7 @@ async def background() -> str:
     stdout, stderr = await process.communicate()
     result = str(stdout.decode())
     if not result:
-        autotests.errors.warn(f'can\'t run pyright test: {stderr.decode()}')
+        autotests.logging.warn(f'can\'t run pyright test: {stderr.decode()}')
         return ''
     else:
         return result

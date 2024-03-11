@@ -1,4 +1,4 @@
-import autotests.errors
+import autotests.logging
 import subprocess
 import core.setup
 import asyncio
@@ -41,9 +41,9 @@ async def get_result(
         if name in requirements_dict:
             needed_outdeated.add(name)
     if needed_outdeated:
-        autotests.errors.warn(
+        autotests.logging.warn(
             f'{needed_outdeated} packages are outdated, to update requirements.txt use --update_req_txt --install_req'
         )
     else:
-        autotests.errors.passed('no oudtdated packages')
+        autotests.logging.passed('no oudtdated packages')
 
