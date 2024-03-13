@@ -1,4 +1,5 @@
 import autotests.logging
+import subprocess
 import core.setup
 import subprocess
 import asyncio
@@ -12,7 +13,7 @@ async def get_result(
     returns true if test passed, false if not passed
     '''
     if not output_str:
-        return True
+        return False
     try:
         output_dict = json.loads(output_str)
     except:
@@ -53,7 +54,11 @@ async def background() -> str:
     stdout, stderr = await process.communicate()
     result = str(stdout.decode())
     if not result:
-        autotests.logging.warn(f'can\'t run pyright test: {stderr.decode()}')
+        node_version = subprocess.run(
+            ['node', '--version']
+        )
+        error = f'can\'t run pyright test: {stderr.decode()}\n\nnode version: {node_version}'
+        autotests.logging.warn(error)
         return ''
     else:
         return result
