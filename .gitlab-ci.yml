@@ -14,6 +14,6 @@ autotests_windows:
   image: python:3.12
   script:
     - choco install python --version=3.12.2 -y -f
-    - choco install nodejs -y -f
+    - choco install nodejs --version=21 -y -f
     - C:/Python312/python.exe freespin.py autotests
 
